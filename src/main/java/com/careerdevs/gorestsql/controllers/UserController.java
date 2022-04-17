@@ -18,15 +18,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping ("/upload/{id}")
-    public ResponseEntity<?> uploadUserById (
-            @PathVariable ("id") String userId,
-            RestTemplate restTemplate
-    ) {
+    @GetMapping ("/{id}")
+    public ResponseEntity<?> getUserById (@PathVariable ("id") String id) {
 
         try {
 
-            int uID = Integer.parseInt(userId);
+            int uID = Integer.parseInt(id);
 
             String url = "https://gorest.co.in/public/v2/users/" + uID;
 
@@ -55,11 +52,11 @@ public class UserController {
     }
 
     @GetMapping ("/all")
-    public <?> ResponseEntity<?> getAllUser () {
+    public ResponseEntity<?> getAllUser () {
 
         try {
 
-            iterable<User> allUsers = userRepository.findAll();
+            Iterable<User> allUsers = userRepository.findAll();
             return new ResponseEntity<>(allUsers, HttpStatus.OK);
 
         } catch (Exception e) {
